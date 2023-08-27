@@ -1,23 +1,22 @@
 import React, { useState } from "react";
 import { Form, Input, message } from "antd";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { showLoading, hideLoading } from "../redux/features/alertSlice";
 import { Link, useNavigate } from "react-router-dom";
 import "../styles/RegisterStyles.css";
 import api from "./Api";
 
 const Register = () => {
   const navigate = useNavigate();
-  const [showPassword, setShowPassword] = useState(false);
-  const [password, setPassword] = useState("");
-
-  const handleTogglePassword = () => {
-    setShowPassword(!showPassword);
-  };
+  const dispatch = useDispatch();
 
   const onfinishHandler = async (values) => {
     // console.log(values);
     try {
+      dispatch(showLoading());
       const res = await axios.post(`http://localhost:8080/register`, values);
+      dispatch(hideLoading());
       if (res.data.success) {
         message.success("Register sucessfully");
         navigate("/login");
@@ -25,6 +24,7 @@ const Register = () => {
         message.error(res.data.message);
       }
     } catch (err) {
+      dispatch(hideLoading());
       console.log(err);
       message.error("Something went wrong");
     }

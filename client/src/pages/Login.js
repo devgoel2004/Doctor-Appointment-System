@@ -1,20 +1,21 @@
-import React, { useState } from "react";
+import React from "react";
 import { Form, Input, message } from "antd";
+import { useDispatch } from "react-redux";
+import { showLoading, hideLoading } from "../redux/features/alertSlice";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../styles/RegisterStyles.css";
 const Login = () => {
   const navigate = useNavigate();
-  const [showPassword, setShowPassword] = useState(false);
-  const [password, setPassword] = useState("");
+  const dispatch = useDispatch();
 
-  const handleTogglePassword = () => {
-    setShowPassword(!showPassword);
-  };
   const onfinishHandler = async (values) => {
     // console.log(values);
     try {
+      dispatch(showLoading());
       const res = await axios.post("/login", values);
+      window.location.reload();
+      dispatch(hideLoading());
       if (res.data.success) {
         localStorage.setItem("token", res.data.token);
         message.success("Login Successfull");
@@ -23,6 +24,7 @@ const Login = () => {
         message.error(res.data.message);
       }
     } catch (err) {
+      dispatch(hideLoading());
       console.log(err);
       message.error("Something went wrong");
     }
