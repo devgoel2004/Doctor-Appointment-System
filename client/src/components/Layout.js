@@ -1,31 +1,30 @@
 import React from "react";
 import "../styles/LayoutStyle.css";
+import { AdminMenu, UserMenu } from "./../Data/data";
+
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { AdminMenu, UserMenu } from "../Data/data";
 import { useSelector } from "react-redux";
-import { message } from "antd";
+import { Badge, message } from "antd";
 const Layout = ({ children }) => {
   const { user } = useSelector((state) => state.user);
   const location = useLocation();
   const navigate = useNavigate();
-
-  //rendering menu list
-
+  // logout funtion
   const handleLogout = () => {
     localStorage.clear();
-    message.success("Logout Successfull");
+    message.success("Logout Successfully");
     navigate("/login");
   };
 
+  // redering menu list
   const SidebarMenu = user?.isAdmin ? AdminMenu : UserMenu;
-
   return (
     <>
       <div className="main">
         <div className="layout">
           <div className="sidebar">
             <div className="logo">
-              <h6>HEALTHSYNC</h6>
+              <h6>DOCSCHEDULR</h6>
               <hr />
             </div>
             <div className="menu">
@@ -49,7 +48,10 @@ const Layout = ({ children }) => {
           <div className="content">
             <div className="header">
               <div className="header-content">
-                <i className="fa-solid fa-bell"></i>
+                <Badge count={user && user?.notification.length}>
+                  <i class="fa-solid fa-bell"></i>
+                </Badge>
+
                 <Link to="/profile">{user?.name}</Link>
               </div>
             </div>

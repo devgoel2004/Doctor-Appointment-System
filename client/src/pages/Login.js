@@ -10,10 +10,10 @@ const Login = () => {
   const dispatch = useDispatch();
 
   const onfinishHandler = async (values) => {
-    // console.log(values);
+    console.log(values);
     try {
       dispatch(showLoading());
-      const res = await axios.post("/login", values);
+      const res = await axios.post("http://localhost:8080/login", values);
       window.location.reload();
       dispatch(hideLoading());
       if (res.data.success) {

@@ -11,7 +11,7 @@ export const UserMenu = [
   },
   {
     name: "Apply Doctor",
-    path: "/apply-doctor",
+    path: "/applydoctor",
     icon: "fa-solid fa-user-doctor",
   },
   {
@@ -21,12 +21,14 @@ export const UserMenu = [
   },
 ];
 
+// admin menu
 export const AdminMenu = [
   {
     name: "Home",
     path: "/",
     icon: "fa-solid fa-house",
   },
+
   {
     name: "Doctors",
     path: "/doctors",
@@ -34,7 +36,7 @@ export const AdminMenu = [
   },
   {
     name: "Users",
-    path: "/user",
+    path: "/users",
     icon: "fa-solid fa-user",
   },
   {

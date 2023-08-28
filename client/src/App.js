@@ -1,15 +1,10 @@
-import logo from "./logo.svg";
+// import logo from "./logo.svg";
 import "./App.css";
-import {
-  BrowserRouter,
-  Routes,
-  Route,
-  useSearchParams,
-} from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import { UseSelector, useSelector } from "react-redux/es/hooks/useSelector";
+import { useSelector } from "react-redux/es/hooks/useSelector";
 import Spinner from "./components/Spinner";
 import ProtectedRoute from "./components/ProtectedRoute";
 import PublicRoute from "./components/PublicRoute";
@@ -41,11 +36,11 @@ function App() {
               }
             />
             <Route
-              path="/apply-doctor"
+              path="/applydoctor"
               element={
-                <PublicRoute>
+                <ProtectedRoute>
                   <ApplyDoctor />
-                </PublicRoute>
+                </ProtectedRoute>
               }
             />
             <Route
