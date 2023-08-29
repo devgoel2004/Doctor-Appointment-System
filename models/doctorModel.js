@@ -24,6 +24,10 @@ const doctorSchema = new mongoose.Schema(
       type: String,
       required: [true, "Address is required"],
     },
+    specialization: {
+      type: String,
+      required: [true, "Specialization is required"],
+    },
     experience: {
       type: String,
       required: [true, "experience is required"],

@@ -86,7 +86,7 @@ const applyDoctorController = async (req, res) => {
     const notification = adminUser.notification;
     notification.push({
       type: "apply-doctor-request",
-      message: `${newDoctor.firstname} ${newDoctor.lastname} has applied for a Doctor account`,
+      message: `${newDoctor.firstName} ${newDoctor.lastName} has applied for a Doctor account`,
       data: {
         doctorId: newDoctor._id,
         name: newDoctor.firstname + " " + newDoctor.lastname,
@@ -107,9 +107,58 @@ const applyDoctorController = async (req, res) => {
     });
   }
 };
+
+const getAllNotificationControllers = async (req, res) => {
+  try {
+    const user = await userModel.findOne({ _id: req.body.userId });
+    const seennotification = user.seennotification; //seennotification
+    const notification = user.notification;
+    seennotification.push(...notification);
+    user.notification = [];
+    user.seennotification = seennotification;
+    const updatedUser = await user.save();
+    res.status(200).send({
+      success: true,
+      message: `all notification marked as read`,
+      data: updatedUser,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      message: "Error in notification",
+      success: false,
+      error,
+    });
+  }
+};
+
+//delete notifications
+const deleteAllNotificationControllers = async (req, res) => {
+  try {
+    const user = await userModel.findOne({ _id: req.body.userId });
+    user.notification = [];
+    user.seennotification = [];
+    const updatedUser = await user.save();
+    updatedUser.password = undefined;
+    res.status(200).send({
+      success: true,
+      message: "Notifications Deleted successfull",
+      data: updatedUser,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      message: "unable to delete all notification",
+      error,
+    });
+  }
+};
 module.exports = {
   loginController,
   registerController,
   authControllers,
   applyDoctorController,
+  deleteAllNotificationControllers,
+  getAllNotificationControllers,
 };

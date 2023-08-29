@@ -44,7 +44,7 @@ const ApplyDoctor = () => {
           <Col xs={24} md={24} lg={8}>
             <Form.Item
               label="First Name"
-              name="firstname"
+              name="firstName"
               required
               rules={[{ required: true }]}>
               <Input type="text" placeholder="Your Name" />
@@ -116,7 +116,7 @@ const ApplyDoctor = () => {
           <Col xs={24} md={24} lg={8}>
             <Form.Item
               label="Fee Per Cunsaltion"
-              name="feepercunsaltion"
+              name="feesPerConsultation"
               required
               rules={[{ required: true }]}>
               <Input type="text" placeholder="Your Fee Per Cunsaltion" />
