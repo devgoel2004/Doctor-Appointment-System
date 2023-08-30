@@ -34,6 +34,7 @@ app.use(morgan("dev"));
 //routes
 
 app.use("", require("./routes/userRoutes"));
+app.use("/admin", require("./routes/adminRoute"));
 //listen port
 const port = process.env.PORT;
 
