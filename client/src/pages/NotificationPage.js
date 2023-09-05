@@ -54,6 +54,7 @@ const NotificationPage = () => {
       } else {
         message.error(res.data.message);
       }
+      window.location.reload();
     } catch (err) {
       console.log(err);
       message.error("Something went wrong to notification");

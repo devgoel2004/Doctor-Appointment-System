@@ -2,7 +2,7 @@ import Layout from "../components/Layout";
 import React from "react";
 import { Col, Row, Form, Input, TimePicker, message } from "antd";
 import { useSelector, useDispatch } from "react-redux";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { showLoading, hideLoading } from "../redux/features/alertSlice";
 const ApplyDoctor = () => {
@@ -24,10 +24,10 @@ const ApplyDoctor = () => {
       );
       dispatch(hideLoading());
       if (res.data.success) {
-        message.success(res.data.success);
+        message.success(res.data.message);
         navigate("/");
       } else {
-        message.error(res.data.success);
+        message.error(res.data.message);
       }
     } catch (error) {
       dispatch(hideLoading());

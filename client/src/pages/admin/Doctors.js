@@ -48,7 +48,7 @@ const Doctors = () => {
 
   useEffect(() => {
     getDoctors();
-  }, []);
+  }, []);  
 
   const columns = [
     {

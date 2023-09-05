@@ -17,6 +17,10 @@ const doctorSchema = new mongoose.Schema(
       type: String,
       required: [true, "phone number is required"],
     },
+    email: {
+      type: String,
+      required: [true, "Email is required"],
+    },
     website: {
       type: String,
     },
