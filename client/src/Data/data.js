@@ -7,12 +7,12 @@ export const UserMenu = [
   {
     name: "Appointments",
     path: "/appointments",
-    icon: "fa-solid fa-list",
+    icon: "fa-solid fa-calendar-days",
   },
   {
     name: "Apply Doctor",
     path: "/applydoctor",
-    icon: "fa-solid fa-user-doctor",
+    icon: "fa-solid fa-user-md",
   },
   {
     name: "Profile",

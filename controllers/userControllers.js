@@ -1,6 +1,7 @@
 const userModel = require("../models/userModels");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const appointmentModel = require("../models/appointmentModel");
 const nodemailer = require("nodemailer");
 const doctorModel = require("../models/doctorModel");
 //register callback function
@@ -154,6 +155,52 @@ const deleteAllNotificationControllers = async (req, res) => {
     });
   }
 };
+
+const getAllDoctorControllers = async (req, res) => {
+  try {
+    const doctors = await doctorModel.find({ status: "approved" });
+    res.status(200).send({
+      success: true,
+      message: "Doctors lists fetched successfully",
+      data: doctors,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      error,
+      message: "Error while fetching doctor",
+    });
+  }
+};
+
+//BOOK Appointment
+const bookAppointmentController = async (req, res) => {
+  try {
+    req.body.status = "pending";
+    const newAppointment = new appointmentModel(req.body);
+    await newAppointment.save();
+    const user = await userModel.findOne({ _id: req.body.doctorInfo.userId });
+    user.notification.push({
+      type: `New-Appointment-request`,
+      message: `A new Appointment request from ${req.body.userInfo.name}`,
+      onClickPath: `/user/appointments`,
+    });
+    await user.save();
+    res.status(200).send({
+      success: true,
+      message: "Appointment Book Successfully",
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      error,
+      message: "Error while booking appointment",
+    });
+  }
+};
+
 module.exports = {
   loginController,
   registerController,
@@ -161,4 +208,6 @@ module.exports = {
   applyDoctorController,
   deleteAllNotificationControllers,
   getAllNotificationControllers,
+  getAllDoctorControllers,
+  bookAppointmentController,
 };
